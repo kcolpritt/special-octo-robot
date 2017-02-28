@@ -133,7 +133,7 @@ ISR(TIMER0_OVF_vect)
 
 int main(void)
 {
-	  //Enable printf() and setServo()
+/*	  //Enable printf() and setServo()
 	  initRBELib();
 
 	  // Write the USARTDebug.c file using the function prototypes in the H file to enable the usart
@@ -150,12 +150,25 @@ int main(void)
 	  //Set PID constants
 	  setConst('H',20.0,0.01,0.1);
 	  setConst('L',20.0,0.01,0.1);
+	  */
+
+	  IRSensor sensor1;
+	  IRSensor sensor2;
+	  const int theta1Start = 90;
+	  const int theta2Start = 90;
+	  int flag1;
+	  int flag2;
+
+
+	  typedef enum {
+		  Start, Sense, MoveArm, Grab, LiftBlock, Weigh;
+	  } sort_blocks;
 
 	  while(1)
 	  {
 
 
-
+/*
 		  //PID run in interupt
 		  lowSetP=angleToADCLow(0);
 		  highSetP=angleToADCHigh(90);
@@ -165,15 +178,86 @@ int main(void)
 		  _delay_ms(2000);
 
 
+
+
 		  lowSetP=angleToADCLow(90);
 		  highSetP=angleToADCHigh(0);
 		  printf("adcL: %d\n\r",lowSetP);
 		  printf("adcH: %d\n\r",highSetP);
 
 		  _delay_ms(2000);
+*/
+		  while(flag) {
+
+			  flag = 0;
+
+			  switch(sort_blocks) {
+
+			  case Start:
+				  setServo(/*pin, value*/); //run conveyor
+				  //set links to start positions
+				  sort_blocks = Sense;
+				  break;
+			  }
+
+			  case Sense:
+				  sensor1 = senseBlock(sensor1, IR, /*ADCChannel, setPoint, calibration*/);
+				  sensor2 = senseBlock(sensor2, IR, /*ADCChannel, setPoint, calibration*/);
+
+				  if((sensor1.distance != 0) && (flag1 == 0)) {
+					  flag1 = 1;
+					  dist1 = sensor1.distance;
+				  }
+				  if((sensor2.distance != 0) && (flag2 == 0)) {
+					  flag2 = 1;
+					  dist2 = sensor2.distance;
+				  }
+				  if((dist1 != 0) && (dist2 != 0)){
+					  distance = (dist1 + dist2) / 2;
+					  sort_blocks = /*next case*/;
+				  } else {
+					  sort_blocks = Sense;
+				  }
+				  break;
+
+			  case MoveArm:
+				  //use inverse kinematics to find angles
+				  //move arm to this position
+				  //determine error
+				  sort_blocks = Grab;
+				  break;
+
+			  case Grab:
+				  setServo(/*pin, speed*/); //Close the Gripper
+				  move_blocks = LiftBlock;
+				  break;
+
+			  case LiftBlock:
+				  setServo(/*pin, speed*/); //close gripper
+				  //move arm to specified position
+				  //determine error
+				 sort_blocks = Weigh;
+				 break;
+
+			  case Weigh:
+				  for(i=0, i<1000, i++){
+					  //apply torque large enough to move small block but too small to move large block
+					  //find position of upper link (getADC())
+					  // if(arm doesn't move) block = heavy
+					  //if(arm does move) block = light
+				  }
+				  sort_blocks = Sort;
+				  break;
+
+			  case Sort:
+				  //if(block == heavy) move to heavy spot
+				  //if(block == light) move to light spot
+
+
+
+		  }
 
 	  }
-
 }
 
 
