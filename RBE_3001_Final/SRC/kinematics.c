@@ -5,15 +5,6 @@
  *      Author: meghanbroughton
  */
 
-typedef struct {
-	long theta_1;
-	long theta_2;
-} angles;
-
-typedef struct {
-	float X;
-	float Y;
-} coords;
 
 const double length0;
 const double length1;

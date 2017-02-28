@@ -5,19 +5,6 @@
  *      Author: meghanbroughton
  */
 
-typedef struct {
-	int filter;
-	int calibration;
-	unsigned short currVal;
-	unsigned short prevVal;
-	unsigned short distance;
-}  IRSensor;
-
-typedef const struct {
-	float a;
-	float b;
-	float c;
-} calibrate;
 
 float calcIRSensor(calibrate sensor, unsigned short adc) {
 	if(adc + sensor.b <= 0) {
