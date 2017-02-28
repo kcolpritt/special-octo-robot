@@ -133,9 +133,9 @@ ISR(TIMER0_OVF_vect)
 
 int main(void)
 {
-/*	  //Enable printf() and setServo()
+	  //Enable printf() and setServo()
 	  initRBELib();
-
+	  /*
 	  // Write the USARTDebug.c file using the function prototypes in the H file to enable the usart
 	  //Set the baud rate of the UART
 	  debugUSARTInit(115200);
@@ -152,8 +152,15 @@ int main(void)
 	  setConst('L',20.0,0.01,0.1);
 	  */
 
+	  Link upper_link
+	  Link lower_link
 	  IRSensor sensor1;
 	  IRSensor sensor2;
+	  sensor1.distance = 0;
+	  sensor2.distance = 0;
+
+	  signed short distance1 = 0,
+
 	  const int theta1Start = 90;
 	  const int theta2Start = 90;
 	  int flag1;
