@@ -16,6 +16,6 @@ typedef const struct {
 } calibrate;
 
 float calcIRSensor(calibrate sensor, unsigned short adc);
-IRSensor senseBlock(IRSensor sensor, calibrate IR, int ADCchannel, int setPoint, int calibration);
+IRSensor senseBlock(IRSensor sensor, calibrate maxDist, int ADCchannel, int maxCount, int calibration);
 
 #endif

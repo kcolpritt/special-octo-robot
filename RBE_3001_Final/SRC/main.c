@@ -10,7 +10,7 @@
 //For use of abs()
 #include <stdlib.h>
 
-
+/*
 //character for receiving serial data
 char inchar;
 unsigned long lowADC = 0;
@@ -152,8 +152,8 @@ int main(void)
 	  setConst('L',20.0,0.01,0.1);
 	  */
 
-	  Link upper_link
-	  Link lower_link
+	  // Link upper_link
+	  // Link lower_link
 	  IRSensor sensor1;
 	  IRSensor sensor2;
 	  sensor1.distance = 0;

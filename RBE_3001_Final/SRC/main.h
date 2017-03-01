@@ -9,8 +9,8 @@
 
 
 volatile unsigned char flag;
-volatile unsigned long timer;
-volatile unsigned long sampleTime;
+//volatile unsigned long timer;
+//volatile unsigned long sampleTime;
 
 #endif
 

@@ -14,14 +14,14 @@ float calcIRSensor(calibrate sensor, unsigned short adc) {
 	}
 }
 
-IRSensor senseBlock(IRSensor sensor, calibrate IR, int ADCchannel, int setPoint, int calibration) {
+IRSensor senseBlock(IRSensor sensor, calibrate maxDist, int ADCchannel, int maxCount, int calibration) {
 	unsigned short distance = 0;
 	sensor.calibration = calibration;  //max distance
-	sensor.currVal = calcIRSensor(IR, getADC(ADCchannel));
+	sensor.currVal = calcIRSensor(maxDist, getADC(ADCchannel));
 
 	if(sensor.calibration > sensor.currVal) {
 		sensor.filter++;
-		if(sensor.filter > setPoint){
+		if(sensor.filter > maxCount){
 			distance = sensor.currVal;
 		}
 	} else {
@@ -34,7 +34,7 @@ IRSensor senseBlock(IRSensor sensor, calibrate IR, int ADCchannel, int setPoint,
 
 	sensor.distance = distance;
 
-	return distance;
+	return sensor;
 }
 
 
