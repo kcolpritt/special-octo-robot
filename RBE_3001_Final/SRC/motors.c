@@ -27,15 +27,15 @@ void driveMotor(int motor, int speed){
 	if(speed > -30 && speed < 30){
 		speed = 0;
 	}
-	if((speed >= 0) && (motor == upperMotor)){  //forward
+	if((speed >= 0) && (motor == uppermotor)){  //forward
 		setDAC(0, speed);
 		setDAC(1,0);
 	}
-	if((speed < 0) && (motor == upperMotor)){   //Backward
+	if((speed < 0) && (motor == uppermotor)){   //Backward
 		setDAC(0,0);
 		setDAC(1, -1*speed);
 	}
-	if((speed >= 0) & (motor == lowerMotor)){
+	if((speed >= 0) & (motor == lowermotor)){
 		setDAC(3, speed);
 		setDAC(2, -1*speed);
 	}
